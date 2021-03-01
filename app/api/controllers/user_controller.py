@@ -11,7 +11,7 @@ _user = UserDto.user
 
 @api.route("/")
 class UserList(Resource):
-    """Resource Controller for Users"""
+    """Resource controller for Users"""
 
     @api.doc("list all users")
     @api.marshal_list_with(_user, envelope="users")
@@ -34,7 +34,7 @@ class UserList(Resource):
 
 @api.route("/<string:public_id>")
 @api.param("public_id", "The User identifier")
-@api.response(404, "User not found.")
+@api.response(404, "User not found")
 class User(Resource):
     """Resource controller for a User"""
 

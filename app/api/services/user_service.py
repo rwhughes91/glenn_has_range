@@ -19,13 +19,12 @@ def get_user(public_id: str) -> User:
 
     user = User.query.filter_by(public_id=public_id).first()
     if not user:
-        raise BadRequest("User doesn't exist")
+        raise BadRequest("User doesn't exist", 404)
     return user
 
 
 def save_new_user(user_data) -> User:
     """Creates a new user"""
-
     user = User.query.filter(
         or_(User.email == user_data["email"], User.username == user_data["username"])
     ).first()

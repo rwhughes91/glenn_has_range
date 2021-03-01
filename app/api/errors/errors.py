@@ -18,7 +18,10 @@ class BadRequest(Exception):
     """Custom exception class to be thrown when local error occurs"""
 
     def __init__(
-        self, message: str, status: int = 400, payload: Dict[Any, Any] = None
+        self,
+        message: str,
+        status: int = StatusCodes.bad,
+        payload: Dict[Any, Any] = None,
     ) -> None:
         super(BadRequest, self).__init__(message)
         self.message = message
