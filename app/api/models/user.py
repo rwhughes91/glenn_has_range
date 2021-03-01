@@ -1,7 +1,12 @@
+from datetime import datetime, timedelta
 from sqlalchemy import Column
 from flask_restplus import Namespace, fields
+import jwt
 
 from app import db, flask_bcrypt
+from config import key
+from ..errors import BadRequest
+from .auth import BlacklistToken
 
 
 class UserDto:
@@ -33,6 +38,9 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(100))
 
+    def __repr__(self) -> str:
+        return f"<User {self.username}>"
+
     @property
     def password(self) -> str:
         raise AttributeError("password: write-only field")
@@ -48,5 +56,39 @@ class User(db.Model):
 
         return flask_bcrypt.check_password_hash(self.password_hash, password)
 
-    def __repr__(self) -> str:
-        return f"<User {self.username}>"
+    def encode_auth_token(self, user_id: str) -> str:
+        """Generates the auth token"""
+
+        try:
+            payload = {
+                "exp": datetime.utcnow() + timedelta(days=1, seconds=5),
+                "iat": datetime.utcnow(),
+                "sub": user_id,
+            }
+            token = jwt.encode(payload, key or "", algorithm="HS256")
+            return token.decode()
+
+        except Exception as e:
+            raise BadRequest(
+                "There was an error encoding the auth token",
+                500,
+                dict(error_message=e),
+            )
+
+    @staticmethod
+    def decode_auth_token(auth_token: str) -> str:
+        """Decodes the auth token"""
+
+        try:
+            payload = jwt.decode(auth_token, key or "")
+            is_blacklisted_token = BlacklistToken.check_blacklist(auth_token)
+            if is_blacklisted_token:
+                raise BadRequest("Token blacklisted. Please log in again.")
+            else:
+                return payload["sub"]
+
+        except jwt.ExpiredSignatureError:
+            raise BadRequest("Signature expired. Please log in again.")
+
+        except jwt.InvalidTokenError:
+            raise BadRequest("Invalid token. Please log in again.")

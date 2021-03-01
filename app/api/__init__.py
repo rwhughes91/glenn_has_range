@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restplus import Api
 
-from .controllers import user_ns, playlist_ns
+from .controllers import user_ns, playlist_ns, auth_ns
 from .errors import add_error_handlers
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api")
@@ -15,4 +15,6 @@ api = Api(
 
 api.add_namespace(user_ns, path="/users")
 api.add_namespace(playlist_ns, path="/playlists")
+api.add_namespace(auth_ns)
+
 add_error_handlers(api_blueprint)

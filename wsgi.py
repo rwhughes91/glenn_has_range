@@ -1,7 +1,7 @@
 import json
 from app import create_app, db
 from app.api import api
-from app.api.models import Playlist, User
+from app.api.models import Playlist, User, BlacklistToken
 
 app = create_app("dev")
 app.app_context().push()
@@ -16,7 +16,13 @@ def export_swagger():
 
 @app.shell_context_processor
 def make_shell_context():
-    return {"db": db, "Playlist": Playlist, "User": User, "api": api}
+    return {
+        "db": db,
+        "api": api,
+        "Playlist": Playlist,
+        "User": User,
+        "BlacklistToken": BlacklistToken,
+    }
 
 
 if __name__ == "__main__":
