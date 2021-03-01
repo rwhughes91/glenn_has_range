@@ -1,11 +1,9 @@
-from typing import Literal
-
 from app import db
 from ..models import User, BlacklistToken
 from ..errors import BadRequest
 
 
-def save_token(token: str) -> Literal[True]:
+def save_token(token: str):
     """Saves the token to the token blacklist table"""
 
     blacklist_token = BlacklistToken(token)
@@ -39,7 +37,7 @@ def login_user(auth_data) -> str:
         )
 
 
-def logout_user(auth_data) -> Literal[True]:
+def logout_user(auth_data):
     """Logs the user out"""
 
     auth_token = auth_data.split(" ")[1] if auth_data else ""
