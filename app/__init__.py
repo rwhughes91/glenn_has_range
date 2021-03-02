@@ -11,7 +11,7 @@ migrate = Migrate()
 flask_bcrypt = Bcrypt()
 
 
-def create_app(config_name: str):
+def create_app(config_name: str) -> Flask:
     """Initialize the core application"""
 
     app = Flask(__name__, instance_relative_config=False)
@@ -23,14 +23,14 @@ def create_app(config_name: str):
         return app
 
 
-def configure_app(app: Flask, config_name: str):
+def configure_app(app: Flask, config_name: str) -> None:
     """Different ways of configurations"""
 
     config = config_by_name[config_name]
     app.config.from_object(config)
 
 
-def configure_extensions(app: Flask):
+def configure_extensions(app: Flask) -> None:
     """Configure extensions for app"""
 
     db.init_app(app)
@@ -38,7 +38,7 @@ def configure_extensions(app: Flask):
     flask_bcrypt.init_app(app)
 
 
-def configure_blueprints(app: Flask):
+def configure_blueprints(app: Flask) -> None:
     """Configure blueprints in views"""
 
     from .api import api_blueprint
