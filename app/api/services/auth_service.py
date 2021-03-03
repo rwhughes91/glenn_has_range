@@ -3,7 +3,7 @@ from ..models import User, BlacklistToken
 from ..errors import BadRequest
 
 
-def save_token(token: str):
+def save_token(token: str) -> bool:
     """Saves the token to the token blacklist table"""
 
     blacklist_token = BlacklistToken(token)
@@ -15,7 +15,7 @@ def save_token(token: str):
         raise BadRequest(
             "There was an error logging out. Please try again.",
             500,
-            {"error_message": e},
+            {"error_message": str(e)},
         )
 
 
@@ -24,20 +24,24 @@ def login_user(auth_data) -> str:
 
     try:
         user = User.query.filter_by(email=auth_data["email"]).first()
+
         if user and user.check_password(auth_data["password"]):
-            return user.encode_auth_token(user.id)
+            return user.encode_auth_token(user.user_id)
 
         raise BadRequest("Email or password do not match", 401)
+
+    except BadRequest as e:
+        raise e
 
     except Exception as e:
         raise BadRequest(
             "There was an error logging in. Please try again.",
             500,
-            {"error_message": e},
+            {"error_message": str(e)},
         )
 
 
-def logout_user(auth_data):
+def logout_user(auth_data) -> bool:
     """Logs the user out"""
 
     auth_token = auth_data.split(" ")[1] if auth_data else ""
@@ -60,5 +64,5 @@ def generate_token(user: User) -> str:
 
     except Exception as e:
         raise BadRequest(
-            "Some error occurred. Please try again.", 404, {"error_message": e}
+            "Some error occurred. Please try again.", 404, {"error_message": str(e)}
         )

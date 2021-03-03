@@ -10,14 +10,28 @@ from app.api import api
 def register(app) -> None:
     """Register cli commands for the app"""
 
-    # Flask swagger
-    @app.cli.command("swagger")
-    def export_swagger() -> None:
+    # Flask export [CMD]
+    @app.cli.group("export")
+    def export() -> None:
+        """Flask export cli group"""
+
+        pass
+
+    @export.command("swagger")
+    def swagger() -> None:
         """Exports swagger schema to JSON file"""
 
         schema = api.__schema__
         with open("swagger.json", "w") as s:
             json.dump(schema, s, ensure_ascii=False, indent=2)
+
+    @export.command("postman")
+    def postman() -> None:
+        """Exports API as Postman collection"""
+
+        collection = api.as_postman(urlvars=False, swagger=True)
+        with open("postman.json", "w") as p:
+            json.dump(collection, p, ensure_ascii=False, indent=2)
 
     # Flask test [CMD]
     @app.cli.group("test")

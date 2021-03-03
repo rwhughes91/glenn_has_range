@@ -66,13 +66,13 @@ class User(db.Model):
                 "sub": user_id,
             }
             token = jwt.encode(payload, key or "", algorithm="HS256")
-            return token.decode()
+            return str(token)
 
         except Exception as e:
             raise BadRequest(
                 "There was an error encoding the auth token",
                 500,
-                {"error_message": e},
+                {"error_message": str(e)},
             )
 
     @staticmethod
@@ -80,7 +80,7 @@ class User(db.Model):
         """Decodes the auth token"""
 
         try:
-            payload = jwt.decode(auth_token, key or "")
+            payload = jwt.decode(auth_token, key or "", algorithms="HS256")
             is_blacklisted_token = BlacklistToken.check_blacklist(auth_token)
             if is_blacklisted_token:
                 raise BadRequest("Token blacklisted. Please log in again.")

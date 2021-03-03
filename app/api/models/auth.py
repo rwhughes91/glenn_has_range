@@ -39,5 +39,5 @@ class BlacklistToken(db.Model):
     def check_blacklist(token: str) -> bool:
         """Check whether auth token has been blacklisted"""
 
-        res = BlacklistToken.query.filter_by(token=str(token)).first()
+        res = BlacklistToken.query.filter_by(token=token).first()
         return bool(res)

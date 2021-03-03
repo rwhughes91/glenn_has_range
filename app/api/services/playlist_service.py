@@ -40,7 +40,7 @@ def put_playlist(playlist_id: str, playlist_data) -> Playlist:
             datasource=playlist_data["datasource"],
             screen_name=playlist_data["screen_name"],
             playlist_link=playlist_data["playlist_link"],
-            playlist_description=playlist_data["playlist_description"],
+            playlist_description=playlist_data.get("playlist_description", ""),
             last_update=datetime.utcnow(),
         )
         save_changes(new_playlist)
@@ -58,7 +58,7 @@ def save_new_playlist(playlist_data) -> Playlist:
             datasource=playlist_data["datasource"],
             screen_name=playlist_data["screen_name"],
             playlist_link=playlist_data["playlist_link"],
-            playlist_description=playlist_data["playlist_description"],
+            playlist_description=playlist_data.get("playlist_description", ""),
             last_update=datetime.utcnow(),
         )
         save_changes(new_playlist)

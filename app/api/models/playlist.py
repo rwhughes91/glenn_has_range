@@ -14,7 +14,7 @@ class PlaylistDto:
     playlist = api.model(
         "playlist",
         {
-            "id": fields.String(description="playlist identifier"),
+            "playlist_id": fields.String(description="playlist identifier"),
             "datasource": fields.String(
                 required=True, description="playlist data source"
             ),
