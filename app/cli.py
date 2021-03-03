@@ -55,7 +55,7 @@ def register(app) -> None:
     def flake8() -> None:
         """Format application using flake8"""
 
-        fmain(["--verbose", "app"])
+        fmain(["app"])
 
     @lint.command("black")
     @click.option("--check/--no-check", default=False, help="Check what would change")

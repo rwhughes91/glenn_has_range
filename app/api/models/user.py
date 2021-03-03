@@ -30,7 +30,7 @@ class User(db.Model):
     __tablename__ = "user"
     __table_args__ = {"schema": "spotify_playlists"}
 
-    id = Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
@@ -72,7 +72,7 @@ class User(db.Model):
             raise BadRequest(
                 "There was an error encoding the auth token",
                 500,
-                dict(error_message=e),
+                {"error_message": e},
             )
 
     @staticmethod

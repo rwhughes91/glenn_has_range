@@ -15,7 +15,7 @@ def save_token(token: str):
         raise BadRequest(
             "There was an error logging out. Please try again.",
             500,
-            dict(error_message=e),
+            {"error_message": e},
         )
 
 
@@ -33,7 +33,7 @@ def login_user(auth_data) -> str:
         raise BadRequest(
             "There was an error logging in. Please try again.",
             500,
-            dict(error_message=e),
+            {"error_message": e},
         )
 
 
@@ -47,7 +47,7 @@ def logout_user(auth_data):
             # mark the token as blacklisted
             return save_token(auth_token)
         else:
-            raise BadRequest("There was an error logging out", 401, dict(message=resp))
+            raise BadRequest("There was an error logging out", 401, {"message": resp})
     else:
         raise BadRequest("Provide a valid auth token", 403)
 
@@ -60,5 +60,5 @@ def generate_token(user: User) -> str:
 
     except Exception as e:
         raise BadRequest(
-            "Some error occurred. Please try again.", 404, dict(error_message=e)
+            "Some error occurred. Please try again.", 404, {"error_message": e}
         )

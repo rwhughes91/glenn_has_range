@@ -17,7 +17,7 @@ def get_playlist(playlist_id: str) -> Playlist:
     """Gets a playlist"""
 
     validate_playlist_id(playlist_id)
-    playlist = Playlist.query.filter_by(id=playlist_id).first()
+    playlist = Playlist.query.filter_by(playlist_id=playlist_id).first()
     if not playlist:
         raise BadRequest("Playlist doesn't exist", 404)
     return playlist
@@ -43,7 +43,7 @@ def save_new_playlist(playlist_data) -> Playlist:
     raise BadRequest(
         "Playlist already exists",
         400,
-        dict(playlist_link="playlist_link must be unique"),
+        {"playlist_link": "playlist_link must be unique"},
     )
 
 

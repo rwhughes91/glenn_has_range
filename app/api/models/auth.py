@@ -24,7 +24,7 @@ class BlacklistToken(db.Model):
     __tablename__ = "blacklist_tokens"
     __table_args__ = {"schema": "spotify_playlists"}
 
-    id = Column(db.Integer, primary_key=True, autoincrement=True)
+    token_id = Column(db.Integer, primary_key=True, autoincrement=True)
     token = Column(db.String(500), unique=True, nullable=False)
     blacklisted_on = Column(db.DateTime, nullable=False)
 
@@ -33,7 +33,7 @@ class BlacklistToken(db.Model):
         self.blacklisted_on = datetime.now()
 
     def __repr__(self) -> str:
-        return "<id: token: {}".format(self.token)
+        return f"<id: token: {self.token}"
 
     @staticmethod
     def check_blacklist(token: str) -> bool:

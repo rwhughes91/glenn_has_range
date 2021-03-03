@@ -35,7 +35,7 @@ class Playlist(db.Model):
     __tablename__ = "spotify_playlists"
     __table_args__ = {"schema": "spotify_playlists"}
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    playlist_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     datasource = Column(db.String)
     screen_name = Column(db.String, nullable=False)
     playlist_link = Column(db.String, nullable=False)
