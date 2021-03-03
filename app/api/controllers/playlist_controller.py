@@ -3,7 +3,7 @@ from flask import request
 from flask_restplus import Resource
 
 from ..models import PlaylistDto, Playlist
-from ..services import get_playlists, save_new_playlist, get_playlist
+from ..services import get_playlists, save_new_playlist, get_playlist, put_playlist
 
 api = PlaylistDto.api
 _playlist = PlaylistDto.playlist
@@ -44,13 +44,14 @@ class Playlist(Resource):
 
         return get_playlist(playlist_id)
 
-    # @api.doc("edit a playlist")
-    # @api.response(200, "Playlist successfully edited")
-    # @api.response(201, "Playlist successfully created")
-    # @api.response(400, "Playlist_id must be a valid UUID")
-    # @api.expect(_playlist, validate=True)
-    # @api.marshal_with(_playlist, envelope="playlist")
-    # def put(self, playlist_id: str) -> Playlist:
-    #     """Edit or create a playlist by the identifier passed"""
+    @api.doc("edit a playlist")
+    @api.response(200, "Playlist successfully edited")
+    @api.response(201, "Playlist successfully created")
+    @api.response(400, "Playlist_id must be a valid UUID")
+    @api.expect(_playlist, validate=True)
+    @api.marshal_with(_playlist, envelope="playlist")
+    def put(self, playlist_id: str) -> Playlist:
+        """Edit or create a playlist by the identifier passed"""
 
-    #     return ""
+        data = request.json
+        return put_playlist(playlist_id, data)

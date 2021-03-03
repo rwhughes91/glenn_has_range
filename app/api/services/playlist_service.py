@@ -23,6 +23,30 @@ def get_playlist(playlist_id: str) -> Playlist:
     return playlist
 
 
+def put_playlist(playlist_id: str, playlist_data) -> Playlist:
+    """Edits or creates a playlist based on passed playlist_id"""
+
+    validate_playlist_id(playlist_id)
+    playlist = Playlist.query.filter_by(playlist_id=playlist_id).first()
+    if playlist:
+        # edit the current playlist
+        for key, value in playlist_data.items():
+            setattr(playlist, key, value)
+        db.session.commit()
+        return playlist
+    else:
+        # create a new playlist
+        new_playlist = Playlist(
+            datasource=playlist_data["datasource"],
+            screen_name=playlist_data["screen_name"],
+            playlist_link=playlist_data["playlist_link"],
+            playlist_description=playlist_data["playlist_description"],
+            last_update=datetime.utcnow(),
+        )
+        save_changes(new_playlist)
+        return new_playlist
+
+
 def save_new_playlist(playlist_data) -> Playlist:
     """Creates a new playlist"""
 
