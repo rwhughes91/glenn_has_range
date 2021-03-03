@@ -1,7 +1,8 @@
-3. add flask cli for mypy
-4. configure mypy
+# Spotify playlists API
 
-5. github pre hook to run tests and swagger output
-6. create setup.py --> make sur tox command is working
-   --> potentially install pyenv and see what envs we can test on
-7. should i add pydocstyle? if so ignore module doc string shit
+Includes:
+
+1. swagger to understand API
+2. basic auth system
+3. graphql endpoint for client
+4. react client
