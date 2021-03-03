@@ -19,11 +19,3 @@ repos:
     hooks:
       - id: flake8
         args: ['app']
-  - repo: local
-    hooks:
-      - id: swagger-export
-        name: swagger-export
-        entry: bash -c "echo something"
-        language: system
-        types: [python]
-        pass_filenames: false

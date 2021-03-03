@@ -11,6 +11,10 @@ coverage==5.5
 distlib==0.3.1
 filelock==3.0.12
 flake8==3.8.4
+flake8-bugbear==20.11.1
+flake8-builtins==1.5.3
+flake8-comprehensions==3.3.1
+flake8-string-format==0.3.0
 Flask==1.1.2
 Flask-Bcrypt==0.7.1
 Flask-Migrate==2.7.0
@@ -55,7 +59,6 @@ tox==3.22.0
 tox-travis==0.12
 typed-ast==1.4.2
 typing-extensions==3.7.4.3
-uuid==1.30
 virtualenv==20.4.2
 Werkzeug==0.16.1
 zipp==3.4.0

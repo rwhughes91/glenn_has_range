@@ -21,9 +21,7 @@
             }
           }
         ],
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/auth/logout": {
@@ -35,12 +33,35 @@
         },
         "summary": "Logs a user out",
         "operationId": "logout a user",
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/playlists/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/playlist"
+              }
+            }
+          }
+        },
+        "summary": "List all playlists",
+        "operationId": "list all playlists",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "type": "string",
+            "format": "mask",
+            "description": "An optional fields mask"
+          }
+        ],
+        "tags": ["playlist"]
+      },
       "post": {
         "responses": {
           "201": {
@@ -69,36 +90,7 @@
             "description": "An optional fields mask"
           }
         ],
-        "tags": [
-          "playlist"
-        ]
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/playlist"
-              }
-            }
-          }
-        },
-        "summary": "List all playlists",
-        "operationId": "list all playlists",
-        "parameters": [
-          {
-            "name": "X-Fields",
-            "in": "header",
-            "type": "string",
-            "format": "mask",
-            "description": "An optional fields mask"
-          }
-        ],
-        "tags": [
-          "playlist"
-        ]
+        "tags": ["playlist"]
       }
     },
     "/playlists/{playlist_id}": {
@@ -134,12 +126,35 @@
             "description": "An optional fields mask"
           }
         ],
-        "tags": [
-          "playlist"
-        ]
+        "tags": ["playlist"]
       }
     },
     "/users/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          }
+        },
+        "summary": "List all registered users",
+        "operationId": "list all users",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "type": "string",
+            "format": "mask",
+            "description": "An optional fields mask"
+          }
+        ],
+        "tags": ["user"]
+      },
       "post": {
         "responses": {
           "201": {
@@ -168,36 +183,7 @@
             "description": "An optional fields mask"
           }
         ],
-        "tags": [
-          "user"
-        ]
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/user"
-              }
-            }
-          }
-        },
-        "summary": "List all registered users",
-        "operationId": "list all users",
-        "parameters": [
-          {
-            "name": "X-Fields",
-            "in": "header",
-            "type": "string",
-            "format": "mask",
-            "description": "An optional fields mask"
-          }
-        ],
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       }
     },
     "/users/{public_id}": {
@@ -233,9 +219,7 @@
             "description": "An optional fields mask"
           }
         ],
-        "tags": [
-          "user"
-        ]
+        "tags": ["user"]
       }
     }
   },
@@ -244,12 +228,8 @@
     "version": "1.0",
     "description": "A RESTful Flask web service for Spotify playlists"
   },
-  "produces": [
-    "application/json"
-  ],
-  "consumes": [
-    "application/json"
-  ],
+  "produces": ["application/json"],
+  "consumes": ["application/json"],
   "tags": [
     {
       "name": "user",
@@ -266,11 +246,7 @@
   ],
   "definitions": {
     "user": {
-      "required": [
-        "email",
-        "password",
-        "username"
-      ],
+      "required": ["email", "password", "username"],
       "properties": {
         "email": {
           "type": "string",
@@ -292,11 +268,7 @@
       "type": "object"
     },
     "playlist": {
-      "required": [
-        "datasource",
-        "playlist_link",
-        "screen_name"
-      ],
+      "required": ["datasource", "playlist_link", "screen_name"],
       "properties": {
         "id": {
           "type": "string",
@@ -322,10 +294,7 @@
       "type": "object"
     },
     "auth_details": {
-      "required": [
-        "email",
-        "password"
-      ],
+      "required": ["email", "password"],
       "properties": {
         "email": {
           "type": "string",
