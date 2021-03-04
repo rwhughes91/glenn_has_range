@@ -17,7 +17,7 @@ def expect_jwt(api: Api, message: str) -> Callable:
     def decorator(func: Callable) -> Callable:
         """Adds expected header to swagger"""
 
-        @api.response(403, message)
+        @api.response(401, message)
         @api.header(
             "Authorization",
             "JWT token to authorize request. Example: 'Bearer <my token>'",

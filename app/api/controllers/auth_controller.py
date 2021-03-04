@@ -33,7 +33,6 @@ class LogoutAPI(Resource):
 
     @api.doc("logout a user")
     @api.response(200, "Successfully logged out")
-    @api.response(401, "There was an error logging out")
     @expect_jwt(api, "Provide a valid auth token")
     def post(self) -> Dict[str, str]:
         """Logs a user out"""
