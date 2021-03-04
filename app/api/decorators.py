@@ -7,7 +7,10 @@ from .errors import BadRequest
 from .models import User
 
 
-def expect_jwt(api: Api, message: str) -> Callable:
+def expect_jwt(
+    api: Api,
+    message: str = "JWT token is required and has the format: 'Bearer <token>'",
+) -> Callable:
     """
     Adds expected header to swagger,
     validates JWT token is present,
@@ -17,7 +20,7 @@ def expect_jwt(api: Api, message: str) -> Callable:
     def decorator(func: Callable) -> Callable:
         """Adds expected header to swagger"""
 
-        @api.response(401, message)
+        @api.response(403, message)
         @api.header(
             "Authorization",
             "JWT token to authorize request. Example: 'Bearer <my token>'",
