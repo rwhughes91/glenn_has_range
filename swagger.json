@@ -5,8 +5,11 @@
     "/auth/login": {
       "post": {
         "responses": {
+          "401": {
+            "description": "Email or password do not match"
+          },
           "200": {
-            "description": "Success"
+            "description": "Successfully logged in"
           }
         },
         "summary": "Logs a user in",
@@ -29,8 +32,32 @@
     "/auth/logout": {
       "post": {
         "responses": {
+          "403": {
+            "description": "Provide a valid auth token",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "There was an error logging out",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
           "200": {
-            "description": "Success"
+            "description": "Successfully logged out",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
           }
         },
         "summary": "Logs a user out",
@@ -111,6 +138,33 @@
           "type": "string"
         }
       ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/playlist"
+            }
+          },
+          "404": {
+            "description": "Playlist not found"
+          }
+        },
+        "summary": "Get a playlist by the identifier passed",
+        "operationId": "get a playlist",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "type": "string",
+            "format": "mask",
+            "description": "An optional fields mask"
+          }
+        ],
+        "tags": [
+          "playlist"
+        ]
+      },
       "put": {
         "responses": {
           "200": {
@@ -134,33 +188,6 @@
               "$ref": "#/definitions/playlist"
             }
           },
-          {
-            "name": "X-Fields",
-            "in": "header",
-            "type": "string",
-            "format": "mask",
-            "description": "An optional fields mask"
-          }
-        ],
-        "tags": [
-          "playlist"
-        ]
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/playlist"
-            }
-          },
-          "404": {
-            "description": "Playlist not found"
-          }
-        },
-        "summary": "Get a playlist by the identifier passed",
-        "operationId": "get a playlist",
-        "parameters": [
           {
             "name": "X-Fields",
             "in": "header",
@@ -333,7 +360,7 @@
         "screen_name"
       ],
       "properties": {
-        "id": {
+        "playlist_id": {
           "type": "string",
           "description": "playlist identifier"
         },

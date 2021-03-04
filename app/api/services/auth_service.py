@@ -1,4 +1,6 @@
 from app import db
+from flask import g
+
 from ..models import User, BlacklistToken
 from ..errors import BadRequest
 
@@ -41,19 +43,23 @@ def login_user(auth_data) -> str:
         )
 
 
-def logout_user(auth_data) -> bool:
+def logout_user() -> bool:
     """Logs the user out"""
 
-    auth_token = auth_data.split(" ")[1] if auth_data else ""
-    if auth_token:
-        resp = User.decode_auth_token(auth_token)
-        if not isinstance(resp, str):
-            # mark the token as blacklisted
-            return save_token(auth_token)
+    try:
+        if isinstance(g.payload, int):
+            return save_token(g.token)
+
         else:
-            raise BadRequest("There was an error logging out", 401, {"message": resp})
-    else:
-        raise BadRequest("Provide a valid auth token", 403)
+            raise Exception("Error decoding your token")
+
+    except BadRequest as e:
+        raise e
+
+    except Exception as e:
+        raise BadRequest(
+            "There was an error logging out", 500, {"error_message": str(e)}
+        )
 
 
 def generate_token(user: User) -> str:
