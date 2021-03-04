@@ -27,8 +27,7 @@ class UserDto:
 class User(db.Model):
     """User model for storing users"""
 
-    __tablename__ = "user"
-    __table_args__ = {"schema": "spotify_playlists"}
+    __tablename__ = "users"
 
     user_id = Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(255), unique=True, nullable=False)

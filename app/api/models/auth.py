@@ -21,9 +21,6 @@ class AuthDto:
 class BlacklistToken(db.Model):
     """Token modal for storing JWT Tokens"""
 
-    __tablename__ = "blacklist_tokens"
-    __table_args__ = {"schema": "spotify_playlists"}
-
     token_id = Column(db.Integer, primary_key=True, autoincrement=True)
     token = Column(db.String(500), unique=True, nullable=False)
     blacklisted_on = Column(db.DateTime, nullable=False)

@@ -1,32 +1,39 @@
-from app import create_app
+from flask import Flask
 
-
-class TestTestingConfig:
-    def test_app_is_testing(self) -> None:
-        """To ensure testing configurations are passed to app"""
-
-        app = create_app("test")
-        assert app.config["DEBUG"] is True
-        assert app.config["TESTING"] is True
-        assert app.config["ENV"] == "testing"
-        assert app.config["SQLALCHEMY_DATABASE_URI"] == "sqlite://"
+from config import config_by_name
 
 
 class TestDevelopmentConfig:
-    def test_app_is_development(self) -> None:
+    def test_app_is_development(self, app: Flask) -> None:
         """To ensure development configurations are passed to app"""
 
-        app = create_app("dev")
+        test_config = config_by_name["dev"]
+        app.config.from_object(test_config)
+
         assert app.config["DEBUG"] is True
         assert app.config["TESTING"] is False
         assert app.config["ENV"] == "development"
 
 
 class TestProductionConfig:
-    def test_app_is_production(self) -> None:
+    def test_app_is_production(self, app: Flask) -> None:
         """To ensure production configurations are passed to app"""
 
-        app = create_app("prod")
+        test_config = config_by_name["prod"]
+        app.config.from_object(test_config)
+
         assert app.config["DEBUG"] is False
         assert app.config["TESTING"] is False
         assert app.config["ENV"] == "production"
+
+
+class TestTestingConfig:
+    def test_app_is_testing(self, app: Flask) -> None:
+        """To ensure testing configurations are passed to app"""
+
+        test_config = config_by_name["test"]
+        app.config.from_object(test_config)
+
+        assert app.config["DEBUG"] is True
+        assert app.config["TESTING"] is True
+        assert app.config["ENV"] == "testing"

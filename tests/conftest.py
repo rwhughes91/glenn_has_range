@@ -1,9 +1,10 @@
 import pytest
-from typing import Iterator, Any
+
+from typing import Any
 from flask import Flask
 from datetime import datetime
 
-from app import create_app, db
+from app import create_app, db as _db
 from app.api.models import Playlist, User
 
 
@@ -42,36 +43,44 @@ users = [
 
 
 @pytest.fixture
-def app() -> Iterator[Flask]:
+def app() -> Flask:
     """Create application for the tests"""
 
     _app = create_app("test")
+    _app.app_context().push()
+
+    return _app
+
+
+@pytest.fixture
+def client(app: Flask) -> Any:
+    """Creates the testing client"""
+
+    return app.test_client()
+
+
+@pytest.fixture
+def db(app: Flask) -> _db:
+    """Seeds the database for tests"""
 
     with app.app_context():
-        db.create_all()
+        _db.create_all()
 
         # seed playlist table
         playlists_obj = []
         for playlist in playlists:
             playlists_obj.append(Playlist(**playlist))
-        db.session.add_all(playlists_obj)
+        _db.session.add_all(playlists_obj)
 
         # seed user table
         users_obj = []
         for user in users:
             users_obj.append(User(**user))
-        db.session.add_all(users_obj)
 
-        db.session.commit()
+        _db.session.add_all(users_obj)
+        _db.session.commit()
 
-    db.session.close()
-    db.drop_all()
+    yield _db
 
-    yield _app
-
-
-@pytest.fixture
-def client(app: Flask) -> Iterator[Any]:
-    """Creates the testing client"""
-
-    yield app.test_client()
+    _db.session.close()
+    _db.drop_all()

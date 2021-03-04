@@ -41,15 +41,6 @@
               }
             }
           },
-          "401": {
-            "description": "There was an error logging out",
-            "headers": {
-              "Authorization": {
-                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
-                "type": "string"
-              }
-            }
-          },
           "200": {
             "description": "Successfully logged out",
             "headers": {
@@ -68,13 +59,76 @@
       }
     },
     "/playlists/": {
+      "get": {
+        "responses": {
+          "403": {
+            "description": "JWT token is required and has the format: 'Bearer <token>'",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/playlist"
+              }
+            },
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "summary": "List all playlists",
+        "operationId": "list all playlists",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "type": "string",
+            "format": "mask",
+            "description": "An optional fields mask"
+          }
+        ],
+        "tags": [
+          "playlist"
+        ]
+      },
       "post": {
         "responses": {
+          "403": {
+            "description": "JWT token is required and has the format: 'Bearer <token>'",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
           "201": {
-            "description": "Playlist successfully created"
+            "description": "Playlist successfully created",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
           },
           "400": {
-            "description": "Playlist already exists"
+            "description": "Playlist already exists",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
           }
         },
         "summary": "Creates a new Playlist",
@@ -99,33 +153,6 @@
         "tags": [
           "playlist"
         ]
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/playlist"
-              }
-            }
-          }
-        },
-        "summary": "List all playlists",
-        "operationId": "list all playlists",
-        "parameters": [
-          {
-            "name": "X-Fields",
-            "in": "header",
-            "type": "string",
-            "format": "mask",
-            "description": "An optional fields mask"
-          }
-        ],
-        "tags": [
-          "playlist"
-        ]
       }
     },
     "/playlists/{playlist_id}": {
@@ -138,43 +165,43 @@
           "type": "string"
         }
       ],
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/playlist"
-            }
-          },
-          "404": {
-            "description": "Playlist not found"
-          }
-        },
-        "summary": "Get a playlist by the identifier passed",
-        "operationId": "get a playlist",
-        "parameters": [
-          {
-            "name": "X-Fields",
-            "in": "header",
-            "type": "string",
-            "format": "mask",
-            "description": "An optional fields mask"
-          }
-        ],
-        "tags": [
-          "playlist"
-        ]
-      },
       "put": {
         "responses": {
+          "403": {
+            "description": "JWT token is required and has the format: 'Bearer <token>'",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
           "200": {
-            "description": "Playlist successfully edited"
+            "description": "Playlist successfully edited",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
           },
           "400": {
-            "description": "Playlist_id must be a valid UUID"
+            "description": "Playlist_id must be a valid UUID",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
           },
           "201": {
-            "description": "Playlist successfully created"
+            "description": "Playlist successfully created",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
           }
         },
         "summary": "Edit or create a playlist by the identifier passed",
@@ -199,16 +226,127 @@
         "tags": [
           "playlist"
         ]
+      },
+      "get": {
+        "responses": {
+          "403": {
+            "description": "JWT token is required and has the format: 'Bearer <token>'",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/playlist"
+            },
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Playlist not found",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "summary": "Get a playlist by the identifier passed",
+        "operationId": "get a playlist",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "type": "string",
+            "format": "mask",
+            "description": "An optional fields mask"
+          }
+        ],
+        "tags": [
+          "playlist"
+        ]
       }
     },
     "/users/": {
+      "get": {
+        "responses": {
+          "403": {
+            "description": "JWT token is required and has the format: 'Bearer <token>'",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            },
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "summary": "List all registered users",
+        "operationId": "list all users",
+        "parameters": [
+          {
+            "name": "X-Fields",
+            "in": "header",
+            "type": "string",
+            "format": "mask",
+            "description": "An optional fields mask"
+          }
+        ],
+        "tags": [
+          "user"
+        ]
+      },
       "post": {
         "responses": {
+          "403": {
+            "description": "JWT token is required and has the format: 'Bearer <token>'",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
           "201": {
-            "description": "User successfully created"
+            "description": "User successfully created",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
           },
           "400": {
-            "description": "User already exists"
+            "description": "User already exists",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
           }
         },
         "summary": "Creates a new User",
@@ -222,33 +360,6 @@
               "$ref": "#/definitions/user"
             }
           },
-          {
-            "name": "X-Fields",
-            "in": "header",
-            "type": "string",
-            "format": "mask",
-            "description": "An optional fields mask"
-          }
-        ],
-        "tags": [
-          "user"
-        ]
-      },
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/user"
-              }
-            }
-          }
-        },
-        "summary": "List all registered users",
-        "operationId": "list all users",
-        "parameters": [
           {
             "name": "X-Fields",
             "in": "header",
@@ -275,12 +386,33 @@
       "get": {
         "responses": {
           "404": {
-            "description": "User not found"
+            "description": "User not found",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "JWT token is required and has the format: 'Bearer <token>'",
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
+            }
           },
           "200": {
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/user"
+            },
+            "headers": {
+              "Authorization": {
+                "description": "JWT token to authorize request. Example: 'Bearer <my token>'",
+                "type": "string"
+              }
             }
           }
         },

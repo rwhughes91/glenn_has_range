@@ -31,8 +31,8 @@ class TestConfig(Config):
     ENV = "testing"
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = "sqlite://"
     PRESERVE_CONTEXT_ON_EXCEPTION = False
+    SQLALCHEMY_DATABASE_URI = environ.get("TEST_DATABASE_URI")
 
 
 class ProdConfig(Config):
@@ -44,6 +44,6 @@ class ProdConfig(Config):
     SQLALCHEMY_DATABASE_URI = environ.get("PROD_DATABASE_URI")
 
 
-config_by_name = dict(dev=DevConfig, test=TestConfig, prod=ProdConfig)
+config_by_name = {"dev": DevConfig, "test": TestConfig, "prod": ProdConfig}
 
 key = Config.SECRET_KEY

@@ -1,11 +1,10 @@
 from typing import Dict, Any
 
-from app import create_app, db, cli
+from app import create_app, db
 from app.api import api
 from app.api.models import Playlist, User, BlacklistToken
 
 app = create_app("dev")
-cli.register(app)
 app.app_context().push()
 
 
