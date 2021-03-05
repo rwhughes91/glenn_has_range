@@ -61,3 +61,34 @@ def expect_jwt(
         return wrapper
 
     return decorator
+
+
+def admin(func: Callable) -> Callable:
+    """Raises BadRequest exception if user is not admin"""
+
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> Callable:
+        """
+        validates JWT Payload is present,
+        validates user is admin
+        """
+
+        payload = g.payload
+
+        if not isinstance(payload, int):
+            raise BadRequest(
+                "Unauthorized",
+                401,
+                {"Request.Header.Authorization": "JWT token is required"},
+            )
+
+        user = User.query.filter_by(public_id=payload)
+
+        if not user.admin:
+            raise BadRequest(
+                "Forbidden", 403, {"error_message": "This route is protected to admins"}
+            )
+
+        return func(*args, **kwargs)
+
+    return wrapper

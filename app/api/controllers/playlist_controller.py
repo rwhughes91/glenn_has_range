@@ -4,7 +4,7 @@ from flask_restplus import Resource
 
 from ..models import PlaylistDto, Playlist
 from ..services import get_playlists, save_new_playlist, get_playlist, put_playlist
-from ..decorators import expect_jwt
+from ..decorators import expect_jwt, admin
 
 api = PlaylistDto.api
 _playlist = PlaylistDto.playlist
@@ -27,6 +27,7 @@ class PlaylistList(Resource):
     @api.expect(_playlist, validate=True)
     @api.marshal_with(_playlist, code=201, envelope="playlist")
     @expect_jwt(api)
+    @admin
     def post(self) -> Playlist:
         """Creates a new Playlist"""
 
@@ -55,6 +56,7 @@ class Playlist(Resource):
     @api.expect(_playlist, validate=True)
     @api.marshal_with(_playlist, envelope="playlist")
     @expect_jwt(api)
+    @admin
     def put(self, playlist_id: str) -> Playlist:
         """Edit or create a playlist by the identifier passed"""
 
