@@ -34,7 +34,7 @@ class Playlist(db.Model):
     playlist_id = Column(db.String(100), primary_key=True, default=lambda: str(uuid4()))
     datasource = Column(db.String, nullable=False)
     screen_name = Column(db.String, nullable=False)
-    playlist_link = Column(db.String, nullable=False)
+    playlist_link = Column(db.String, nullable=False, unique=True)
     playlist_description = Column(db.Text)
     last_update = Column(db.DateTime, default=datetime.now())
 
