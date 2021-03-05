@@ -31,7 +31,7 @@ class PlaylistDto:
 class Playlist(db.Model):
     """Data model for Spotify playlists"""
 
-    playlist_id = Column(db.String(100), primary_key=True, default=uuid4)
+    playlist_id = Column(db.String(100), primary_key=True, default=lambda: str(uuid4()))
     datasource = Column(db.String, nullable=False)
     screen_name = Column(db.String, nullable=False)
     playlist_link = Column(db.String, nullable=False)

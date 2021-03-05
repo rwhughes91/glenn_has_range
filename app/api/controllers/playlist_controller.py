@@ -25,7 +25,7 @@ class PlaylistList(Resource):
     @api.response(201, "Playlist successfully created")
     @api.response(400, "Playlist already exists")
     @api.expect(_playlist, validate=True)
-    @api.marshal_with(_playlist, code=201, envelope="user")
+    @api.marshal_with(_playlist, code=201, envelope="playlist")
     @expect_jwt(api)
     def post(self) -> Playlist:
         """Creates a new Playlist"""

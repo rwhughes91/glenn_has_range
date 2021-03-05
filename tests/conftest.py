@@ -1,6 +1,6 @@
 import pytest
 
-from typing import Any
+from typing import Any, Callable, Dict
 from flask import Flask
 from datetime import datetime
 
@@ -42,7 +42,7 @@ users = [
 ]
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def app() -> Flask:
     """Create application for the tests"""
 
@@ -52,14 +52,14 @@ def app() -> Flask:
     return _app
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def client(app: Flask) -> Any:
     """Creates the testing client"""
 
     return app.test_client()
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def db(app: Flask) -> _db:
     """Seeds the database for tests"""
 
@@ -84,3 +84,26 @@ def db(app: Flask) -> _db:
 
     _db.session.close()
     _db.drop_all()
+
+
+@pytest.fixture(scope="module")
+def client_request(client, db) -> Callable:
+    """Sets up JWT Headers for client testing"""
+
+    auth = {
+        "email": "someEmail@google.com",
+        "password": "testPasssword@123",
+    }
+    res = client.post("/api/auth/login", json=auth)
+    token = res.json["Authorization"]
+
+    def send_request(
+        endpoint: str, method: str = "get", payload: Dict[str, Any] = None
+    ) -> None:
+        """Sends request using test client"""
+
+        return getattr(client, method)(
+            endpoint, json=payload, headers={"Authorization": f"Bearer {token}"}
+        )
+
+    return send_request

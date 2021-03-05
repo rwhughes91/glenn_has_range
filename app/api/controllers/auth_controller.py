@@ -1,5 +1,5 @@
 from typing import Dict
-from flask import request
+from flask import request, g
 from flask_restplus import Resource
 
 from ..models import AuthDto
@@ -37,6 +37,6 @@ class LogoutAPI(Resource):
     def post(self) -> Dict[str, str]:
         """Logs a user out"""
 
-        logout_user()
+        logout_user(g.token, g.payload)
 
         return {"message": "Successfully logged out"}
