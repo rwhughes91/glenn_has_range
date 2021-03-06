@@ -38,6 +38,7 @@ users = [
         "password": "testPasssword@123",
         "registered_on": datetime.utcnow(),
         "public_id": "9a2a2576-1683-4cb4-aa15-10728dd83ac9",
+        "admin": True,
     }
 ]
 

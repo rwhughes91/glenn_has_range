@@ -37,6 +37,7 @@ class Playlist(db.Model):
     playlist_link = Column(db.String, nullable=False, unique=True)
     playlist_description = Column(db.Text)
     last_update = Column(db.DateTime, default=datetime.now())
+    created_by = Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
 
     def __repr__(self) -> str:
         return f"<Playlist {self.playlist_link}>"

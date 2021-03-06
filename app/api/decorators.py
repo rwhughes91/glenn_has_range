@@ -82,7 +82,7 @@ def admin(func: Callable) -> Callable:
                 {"Request.Header.Authorization": "JWT token is required"},
             )
 
-        user = User.query.filter_by(public_id=payload)
+        user = User.query.filter_by(user_id=payload).first()
 
         if not user.admin:
             raise BadRequest(
