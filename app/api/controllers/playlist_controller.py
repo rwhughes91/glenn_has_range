@@ -1,5 +1,5 @@
 from typing import List
-from flask import request
+from flask import request, g
 from flask_restplus import Resource
 
 from ..models import PlaylistDto, Playlist
@@ -32,7 +32,7 @@ class PlaylistList(Resource):
         """Creates a new Playlist"""
 
         data = request.json
-        return save_new_playlist(data)
+        return save_new_playlist(data, g.payload)
 
 
 @api.route("/<string:playlist_id>")
@@ -61,4 +61,4 @@ class Playlist(Resource):
         """Edit or create a playlist by the identifier passed"""
 
         data = request.json
-        return put_playlist(playlist_id, data)
+        return put_playlist(playlist_id, data, g.payload)

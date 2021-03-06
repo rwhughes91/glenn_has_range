@@ -111,6 +111,7 @@ class TestPlaylistService:
         "screen_name": "new name",
         "playlist_link": "https://somelink12.com",
         "playlist_description": "This is a description",
+        "created_by": 1,
     }
 
     def test_get_playlists(self, db) -> None:
@@ -140,7 +141,7 @@ class TestPlaylistService:
         """It adds or edits a spotify playlist by id"""
 
         playlist = put_playlist(
-            "87569b1d-8975-4522-97a4-039346c53512", self.new_playlist
+            "87569b1d-8975-4522-97a4-039346c53512", self.new_playlist, 1
         )
 
         assert playlist is not None
@@ -149,17 +150,17 @@ class TestPlaylistService:
         """It raises a BadRequest when id does not exist"""
 
         with pytest.raises(BadRequest):
-            put_playlist("12", self.new_playlist)
+            put_playlist("12", self.new_playlist, 1)
 
     def test_save_new_playlist_pass(self, db) -> None:
 
         payload = self.new_playlist
         payload["playlist_link"] = "somelink"
-        playlist = save_new_playlist(self.new_playlist)
+        playlist = save_new_playlist(self.new_playlist, 1)
 
         assert playlist is not None
 
     def test_save_new_playlist_fail(self, db) -> None:
 
         with pytest.raises(BadRequest):
-            save_new_playlist(self.new_playlist)
+            save_new_playlist(self.new_playlist, 1)

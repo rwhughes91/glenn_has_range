@@ -15,12 +15,14 @@ playlists = [
         "screen_name": "name1",
         "playlist_link": "https://somelink1.com",
         "playlist_description": "First description",
+        "created_by": 1,
     },
     {
         "playlist_id": "5214cef2-a7f7-4d46-a95d-93ff0e2d9382",
         "datasource": "reddit",
         "screen_name": "name2",
         "playlist_link": "https://somelink2.com",
+        "created_by": 1,
     },
     {
         "playlist_id": "87569b1d-8975-4522-97a4-039346c53512",
@@ -28,6 +30,7 @@ playlists = [
         "screen_name": "name3",
         "playlist_link": "https://somelink3.com",
         "playlist_description": "This is a description",
+        "created_by": 1,
     },
 ]
 
@@ -67,16 +70,16 @@ def db(app: Flask) -> _db:
     with app.app_context():
         _db.create_all()
 
+        # seed user table
+        users_obj = []
+        for user in users:
+            users_obj.append(User(**user))
+
         # seed playlist table
         playlists_obj = []
         for playlist in playlists:
             playlists_obj.append(Playlist(**playlist))
         _db.session.add_all(playlists_obj)
-
-        # seed user table
-        users_obj = []
-        for user in users:
-            users_obj.append(User(**user))
 
         _db.session.add_all(users_obj)
         _db.session.commit()

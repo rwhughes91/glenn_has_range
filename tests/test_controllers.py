@@ -31,6 +31,7 @@ class TestPlaylistController:
                 "screen_name": "name1",
                 "playlist_link": "new link to playlist",
                 "playlist_description": "First description",
+                "created_by": 1,
             },
         ).json
 
@@ -47,6 +48,7 @@ class TestPlaylistController:
                 "screen_name": "name1",
                 "playlist_link": "new link to playlist",
                 "playlist_description": "First description",
+                "created_by": 1,
             },
         )
         status_code = res.status_code
@@ -80,6 +82,7 @@ class TestPlaylistController:
                 "screen_name": "name1",
                 "playlist_link": "new edited link to playlist",
                 "playlist_description": "First description",
+                "created_by": 1,
             },
         ).json
 
@@ -96,6 +99,7 @@ class TestPlaylistController:
                 "screen_name": "name1",
                 "playlist_link": "new edited link to playlist",
                 "playlist_description": "First description",
+                "created_by": 1,
             },
         )
         status_code = res.status_code

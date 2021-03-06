@@ -23,7 +23,7 @@ def get_playlist(playlist_id: str) -> Playlist:
     return playlist
 
 
-def put_playlist(playlist_id: str, playlist_data) -> Playlist:
+def put_playlist(playlist_id: str, playlist_data, created_by: int) -> Playlist:
     """Edits or creates a playlist based on passed playlist_id"""
 
     validate_playlist_id(playlist_id)
@@ -43,6 +43,7 @@ def put_playlist(playlist_id: str, playlist_data) -> Playlist:
                 playlist_link=playlist_data["playlist_link"],
                 playlist_description=playlist_data.get("playlist_description", ""),
                 last_update=datetime.utcnow(),
+                created_by=created_by,
             )
             save_changes(new_playlist)
             return new_playlist
@@ -52,7 +53,7 @@ def put_playlist(playlist_id: str, playlist_data) -> Playlist:
         )
 
 
-def save_new_playlist(playlist_data) -> Playlist:
+def save_new_playlist(playlist_data, created_by: int) -> Playlist:
     """Creates a new playlist"""
 
     playlist = Playlist.query.filter_by(
@@ -65,6 +66,7 @@ def save_new_playlist(playlist_data) -> Playlist:
             playlist_link=playlist_data["playlist_link"],
             playlist_description=playlist_data.get("playlist_description", ""),
             last_update=datetime.utcnow(),
+            created_by=created_by,
         )
         save_changes(new_playlist)
         return new_playlist
