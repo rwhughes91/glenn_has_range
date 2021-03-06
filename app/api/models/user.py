@@ -3,25 +3,11 @@ from sqlalchemy import Column
 from flask_restplus import Namespace, fields
 import jwt
 
+
 from app import db, flask_bcrypt
 from config import key
 from ..errors import BadRequest
 from .auth import BlacklistToken
-
-
-class UserDto:
-    """User data transfer object"""
-
-    api = Namespace("user", description="user related operations")
-    user = api.model(
-        "user",
-        {
-            "email": fields.String(required=True, description="user email address"),
-            "username": fields.String(required=True, description="user username"),
-            "password": fields.String(required=True, description="user password"),
-            "public_id": fields.String(description="user identifier"),
-        },
-    )
 
 
 class User(db.Model):
@@ -92,3 +78,18 @@ class User(db.Model):
 
         except jwt.InvalidTokenError:
             raise BadRequest("Invalid token. Please log in again.")
+
+
+class UserDto:
+    """User data transfer object"""
+
+    api = Namespace("user", description="user related operations")
+    user = api.model(
+        "user",
+        {
+            "email": fields.String(required=True, description="user email address"),
+            "username": fields.String(required=True, description="user username"),
+            "password": fields.String(required=True, description="user password"),
+            "public_id": fields.String(description="user identifier"),
+        },
+    )

@@ -7,6 +7,25 @@ from whoosh.analysis import StemmingAnalyzer
 from app import db
 
 
+class Playlist(db.Model):
+    """Data model for Spotify playlists"""
+
+    __tablename__ = "playlists"
+    __searchable__ = ["screen_name", "playlist_link", "playlist_description"]
+    __analyzer__ = StemmingAnalyzer()
+
+    playlist_id = Column(db.String(100), primary_key=True, default=lambda: str(uuid4()))
+    datasource = Column(db.String, nullable=False)
+    screen_name = Column(db.String, nullable=False)
+    playlist_link = Column(db.String, nullable=False, unique=True)
+    playlist_description = Column(db.Text)
+    last_update = Column(db.DateTime, default=datetime.now())
+    created_by = Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+
+    def __repr__(self) -> str:
+        return f"<Playlist {self.playlist_link}>"
+
+
 class PlaylistDto:
     """Playlist data transfer object"""
 
@@ -27,22 +46,3 @@ class PlaylistDto:
             "playlist_description": fields.String(description="playlist description"),
         },
     )
-
-
-class Playlist(db.Model):
-    """Data model for Spotify playlists"""
-
-    __tablename__ = "playlists"
-    __searchable__ = ["screen_name", "playlist_link", "playlist_description"]
-    __analyzer__ = StemmingAnalyzer()
-
-    playlist_id = Column(db.String(100), primary_key=True, default=lambda: str(uuid4()))
-    datasource = Column(db.String, nullable=False)
-    screen_name = Column(db.String, nullable=False)
-    playlist_link = Column(db.String, nullable=False, unique=True)
-    playlist_description = Column(db.Text)
-    last_update = Column(db.DateTime, default=datetime.now())
-    created_by = Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
-
-    def __repr__(self) -> str:
-        return f"<Playlist {self.playlist_link}>"

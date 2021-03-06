@@ -5,19 +5,6 @@ from flask_restplus import Namespace, fields
 from app import db
 
 
-class AuthDto:
-    """Auth data transfer object"""
-
-    api = Namespace("auth", description="authentication related operations")
-    user_auth = api.model(
-        "auth_details",
-        {
-            "email": fields.String(required=True, description="The email address"),
-            "password": fields.String(required=True, description="The user password"),
-        },
-    )
-
-
 class BlacklistToken(db.Model):
     """Token modal for storing JWT Tokens"""
 
@@ -40,3 +27,16 @@ class BlacklistToken(db.Model):
 
         res = BlacklistToken.query.filter_by(token=token).first()
         return bool(res)
+
+
+class AuthDto:
+    """Auth data transfer object"""
+
+    api = Namespace("auth", description="authentication related operations")
+    user_auth = api.model(
+        "auth_details",
+        {
+            "email": fields.String(required=True, description="The email address"),
+            "password": fields.String(required=True, description="The user password"),
+        },
+    )
