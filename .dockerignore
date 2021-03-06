@@ -1,0 +1,9 @@
+.git
+.vscode
+__pycache__
+.mypy_cache
+.pytest_cache
+.tox
+*.egg-info
+.coverage
+venv

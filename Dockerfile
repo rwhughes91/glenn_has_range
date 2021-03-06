@@ -1,23 +1,21 @@
-FROM python:3.6-alpine
+FROM python:3.7-alpine
+RUN apk update && apk add --update gcc python3-dev libc-dev libffi-dev postgresql-dev musl-dev
 
-RUN adduser -D glenn
+WORKDIR /usr/src/app
 
-WORKDIR /home/glenn
+COPY requirements.txt ./
 
-COPY requirements.txt requirements.txt
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 COPY . .
-RUN chmod +x boot.sh
-
-RUN chown -R glenn:glenn ./
-USER glenn
 
 ENV SERVER_NAME="localhost:5000"
 ENV SECRET_KEY="my secret key"
 ENV DATABASE_URI="sqlite://"
 
 EXPOSE 5000
-ENTRYPOINT ["./bin/boot.sh"]
+CMD ["./startup.sh"]
