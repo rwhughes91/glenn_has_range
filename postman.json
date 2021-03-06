@@ -14,7 +14,7 @@
       "url": "http://localhost:5000/api/swagger.json",
       "headers": "",
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
-      "time": 1614885774
+      "time": 1615023595
     },
     {
       "id": "baea724b-ec79-56de-a35a-a84667083f24",
@@ -26,7 +26,7 @@
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
       "folder": "05a0933d-5252-5f58-9c4f-f2aed73648f0",
       "pathVariables": {},
-      "time": 1614885774
+      "time": 1615023595
     },
     {
       "id": "e64109d7-918a-56b2-b976-eb1181fa82de",
@@ -37,19 +37,7 @@
       "headers": "Content-Type:application/json",
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
       "folder": "05a0933d-5252-5f58-9c4f-f2aed73648f0",
-      "time": 1614885774
-    },
-    {
-      "id": "689a61af-9da7-5a29-9820-13ed63f1fc9d",
-      "method": "GET",
-      "name": "list all playlists",
-      "description": "List all playlists",
-      "url": "http://localhost:5000/api/playlists/",
-      "headers": "X-Fields:",
-      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
-      "folder": "230c3c7a-c3ba-5a91-9b27-6c846e9c6d5f",
-      "pathVariables": {},
-      "time": 1614885774
+      "time": 1615023595
     },
     {
       "id": "97fb26b3-f0f7-558b-a7a7-e0bc72824cfa",
@@ -61,21 +49,19 @@
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
       "folder": "230c3c7a-c3ba-5a91-9b27-6c846e9c6d5f",
       "pathVariables": {},
-      "time": 1614885774
+      "time": 1615023595
     },
     {
-      "id": "6465c5fd-7ce5-582c-9d90-eba232330cc9",
-      "method": "PUT",
-      "name": "edit a playlist",
-      "description": "Edit or create a playlist by the identifier passed",
-      "url": "http://localhost:5000/api/playlists/:playlist_id",
-      "headers": "Content-Type:application/json\nX-Fields:",
+      "id": "689a61af-9da7-5a29-9820-13ed63f1fc9d",
+      "method": "GET",
+      "name": "list all playlists",
+      "description": "List all playlists",
+      "url": "http://localhost:5000/api/playlists/",
+      "headers": "X-Fields:",
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
       "folder": "230c3c7a-c3ba-5a91-9b27-6c846e9c6d5f",
-      "pathVariables": {
-        "playlist_id": ""
-      },
-      "time": 1614885774
+      "pathVariables": {},
+      "time": 1615023595
     },
     {
       "id": "2c7a81ba-e46e-5ebb-bf97-87ecb599b9a7",
@@ -89,19 +75,21 @@
       "pathVariables": {
         "playlist_id": ""
       },
-      "time": 1614885774
+      "time": 1615023595
     },
     {
-      "id": "f7d6368f-b80c-591d-89b2-94f5065cc298",
-      "method": "GET",
-      "name": "list all users",
-      "description": "List all registered users",
-      "url": "http://localhost:5000/api/users/",
-      "headers": "X-Fields:",
+      "id": "6465c5fd-7ce5-582c-9d90-eba232330cc9",
+      "method": "PUT",
+      "name": "edit a playlist",
+      "description": "Edit or create a playlist by the identifier passed",
+      "url": "http://localhost:5000/api/playlists/:playlist_id",
+      "headers": "Content-Type:application/json\nX-Fields:",
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
-      "folder": "bfe4cb6e-3ae4-5018-8d52-7636c43b2e79",
-      "pathVariables": {},
-      "time": 1614885774
+      "folder": "230c3c7a-c3ba-5a91-9b27-6c846e9c6d5f",
+      "pathVariables": {
+        "playlist_id": ""
+      },
+      "time": 1615023595
     },
     {
       "id": "bf73ebed-ea35-58aa-b5fd-6f41aae5426e",
@@ -113,7 +101,19 @@
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
       "folder": "bfe4cb6e-3ae4-5018-8d52-7636c43b2e79",
       "pathVariables": {},
-      "time": 1614885774
+      "time": 1615023595
+    },
+    {
+      "id": "f7d6368f-b80c-591d-89b2-94f5065cc298",
+      "method": "GET",
+      "name": "list all users",
+      "description": "List all registered users",
+      "url": "http://localhost:5000/api/users/",
+      "headers": "X-Fields:",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "bfe4cb6e-3ae4-5018-8d52-7636c43b2e79",
+      "pathVariables": {},
+      "time": 1615023595
     },
     {
       "id": "12cba67e-8e02-5e00-8a60-81caac7f5d9d",
@@ -127,7 +127,7 @@
       "pathVariables": {
         "public_id": ""
       },
-      "time": 1614885774
+      "time": 1615023595
     }
   ],
   "folders": [
@@ -136,8 +136,8 @@
       "name": "user",
       "description": "user related operations",
       "order": [
-        "f7d6368f-b80c-591d-89b2-94f5065cc298",
         "bf73ebed-ea35-58aa-b5fd-6f41aae5426e",
+        "f7d6368f-b80c-591d-89b2-94f5065cc298",
         "12cba67e-8e02-5e00-8a60-81caac7f5d9d"
       ],
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6"
@@ -147,10 +147,10 @@
       "name": "playlist",
       "description": "Spotify playlist operations",
       "order": [
-        "689a61af-9da7-5a29-9820-13ed63f1fc9d",
         "97fb26b3-f0f7-558b-a7a7-e0bc72824cfa",
-        "6465c5fd-7ce5-582c-9d90-eba232330cc9",
-        "2c7a81ba-e46e-5ebb-bf97-87ecb599b9a7"
+        "689a61af-9da7-5a29-9820-13ed63f1fc9d",
+        "2c7a81ba-e46e-5ebb-bf97-87ecb599b9a7",
+        "6465c5fd-7ce5-582c-9d90-eba232330cc9"
       ],
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6"
     },
@@ -165,5 +165,5 @@
       "collectionId": "929c06fb-607c-5652-b61e-76da213456d6"
     }
   ],
-  "timestamp": 1614885774
+  "timestamp": 1615023595
 }
