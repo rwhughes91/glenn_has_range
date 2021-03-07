@@ -46,6 +46,7 @@ def put_playlist(playlist_id: str, playlist_data, created_by: int) -> Playlist:
         else:
             # create a new playlist
             new_playlist = Playlist(
+                playlist_id=playlist_id,
                 datasource=playlist_data["datasource"],
                 screen_name=playlist_data["screen_name"],
                 playlist_link=playlist_data["playlist_link"],
