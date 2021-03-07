@@ -84,7 +84,7 @@ def admin(func: Callable) -> Callable:
 
         user = User.query.filter_by(user_id=payload).first()
 
-        if not user.admin:
+        if not user or not user.admin:
             raise BadRequest(
                 "Forbidden", 403, {"error_message": "This route is protected to admins"}
             )

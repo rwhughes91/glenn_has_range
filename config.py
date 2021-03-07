@@ -20,6 +20,8 @@ class Config:
     SERVER_NAME = environ.get("SERVER_NAME")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
+    WHOOSH_INDEX_PATH = "whooshIndex"
+    WHOOSH_ANALYZER = "StemmingAnalyzer"
 
 
 class DevConfig(Config):

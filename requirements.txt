@@ -23,7 +23,6 @@ Flask-Migrate==2.7.0
 flask-restplus==0.13.0
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.4.4
-flask-whooshalchemy3==0.2.0
 graphene==2.1.8
 graphene-sqlalchemy==2.3.0
 graphql-core==2.3.2
@@ -75,5 +74,4 @@ typed-ast==1.4.2
 typing-extensions==3.7.4.3
 virtualenv==20.4.2
 Werkzeug==0.16.1
-Whoosh==2.7.4
 zipp==3.4.0

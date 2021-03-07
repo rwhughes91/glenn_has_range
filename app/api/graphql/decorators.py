@@ -13,7 +13,7 @@ def run_only_once(resolve_func):
     @wraps(resolve_func)
     def wrapper(self, next, root, info, *args, **kwargs):
         has_context = info.context is not None
-        decorator_name = "__{}_run__".format(self.__class__.__name__)
+        decorator_name = "__{0}_run__".format(self.__class__.__name__)
 
         if has_context:
             if isinstance(info.context, dict) and not info.context.get(

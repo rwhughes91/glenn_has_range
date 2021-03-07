@@ -17,11 +17,6 @@ class PlaylistList(Resource):
     @api.doc(
         "list all playlists",
         params={
-            "search": {
-                "description": "full text search",
-                "in": "query",
-                "type": "string",
-            },
             "datasource": {
                 "description": "filter on datasource",
                 "in": "query",
@@ -72,7 +67,6 @@ class PlaylistList(Resource):
         }
 
         return get_playlists(
-            search=request.args.get("search"),
             filters=filters,
             limit=request.args.get("limit"),
             skip=request.args.get("skip", 0),

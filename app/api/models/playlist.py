@@ -2,7 +2,6 @@ from datetime import datetime
 from sqlalchemy import Column
 from uuid import uuid4
 from flask_restplus import Namespace, fields
-from whoosh.analysis import StemmingAnalyzer
 
 from app import db
 
@@ -11,8 +10,6 @@ class Playlist(db.Model):
     """Data model for Spotify playlists"""
 
     __tablename__ = "playlists"
-    __searchable__ = ["screen_name", "playlist_link", "playlist_description"]
-    __analyzer__ = StemmingAnalyzer()
 
     playlist_id = Column(db.String(100), primary_key=True, default=lambda: str(uuid4()))
     datasource = Column(db.String, nullable=False)
