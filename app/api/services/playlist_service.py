@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict, Any
 from uuid import UUID
 from datetime import datetime
 
@@ -7,10 +7,21 @@ from ..models import Playlist
 from ..errors import BadRequest
 
 
-def get_playlists() -> List[Playlist]:
+def get_playlists(
+    search: str = None, filters: Dict[str, Any] = None, limit: int = None, skip: int = 0
+) -> List[Playlist]:
     """Gets all the playlists"""
 
-    return Playlist.query.all()
+    query = Playlist.query.filter_by(**filters["fields"])
+
+    if search:
+        query = query.search(search)
+
+    query = query.offset(skip)
+    if limit:
+        query = query.limit(limit)
+
+    return query.all()
 
 
 def get_playlist(playlist_id: str) -> Playlist:
