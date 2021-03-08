@@ -70,6 +70,7 @@ class PlaylistList(Resource):
             filters=filters,
             limit=request.args.get("limit"),
             skip=request.args.get("skip", 0),
+            order_by=request.args.get("order_by"),
         )
 
     @api.doc("create a new playlist")

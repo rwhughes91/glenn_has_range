@@ -22,7 +22,7 @@ class User(db.Model):
     public_id = db.Column(db.String(100), unique=True)
     username = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(100))
-    playlists = db.relationship("Playlist", backref="playlists", lazy=True)
+    playlists = db.relationship("Playlist", backref="user", lazy=True)
 
     def __repr__(self) -> str:
         return f"<User {self.username}>"

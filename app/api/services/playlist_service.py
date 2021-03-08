@@ -8,11 +8,19 @@ from ..errors import BadRequest
 
 
 def get_playlists(
-    filters: Dict[str, Any] = None, limit: int = None, skip: int = 0
+    filters: Dict[str, Any] = None,
+    limit: int = None,
+    skip: int = 0,
+    order_by: str = None,
 ) -> List[Playlist]:
     """Gets all the playlists"""
 
     query = Playlist.query.filter_by(**filters or {})
+
+    if order_by:
+        col = getattr(Playlist, order_by)
+        if col:
+            query = query.order_by(col)
 
     query = query.offset(skip)
     if limit:
