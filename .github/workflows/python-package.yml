@@ -39,6 +39,6 @@ jobs:
           DATABASE_URI: ${{secrets.DATABASE_URI}}
           REDDIT_CLIENT_ID: ${{secrets.REDDIT_CLIENT_ID}}
           REDDIT_SECRET: ${{secrets.REDDIT_SECRET}}
-          SERVER_NAME: ${{secrets.SERVER_NAME}
+          SERVER_NAME: ${{secrets.SERVER_NAME}}
         run: |
           pytest --rootdir tests
