@@ -11,7 +11,7 @@ def run_only_once(resolve_func):
     from functools import wraps
 
     @wraps(resolve_func)
-    def wrapper(self, next, root, info, *args, **kwargs):
+    def wrapper(self, nextFn, root, info, *args, **kwargs):
         has_context = info.context is not None
         decorator_name = "__{0}_run__".format(self.__class__.__name__)
 
@@ -20,15 +20,15 @@ def run_only_once(resolve_func):
                 decorator_name, False
             ):
                 info.context[decorator_name] = True
-                return resolve_func(self, next, root, info, *args, **kwargs)
+                return resolve_func(self, nextFn, root, info, *args, **kwargs)
             elif not isinstance(info.context, dict) and not getattr(
                 info.context, decorator_name, False
             ):
                 # Graphene: it could be a Context or WSGIRequest object
                 setattr(info.context, decorator_name, True)
-                return resolve_func(self, next, root, info, *args, **kwargs)
+                return resolve_func(self, nextFn, root, info, *args, **kwargs)
 
         # No context, run_only_once will not work
-        return next(root, info, *args, **kwargs)
+        return nextFn(root, info, *args, **kwargs)
 
     return wrapper

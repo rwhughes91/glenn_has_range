@@ -5,7 +5,7 @@ from ..errors import BadRequest
 
 class AuthorizationMiddleware(object):
     @run_only_once
-    def resolve(self, next, root, info, **args):
+    def resolve(self, nextFn, root, info, **args):
         auth = info.context.headers.get("Authorization")
 
         if not auth:
@@ -40,4 +40,4 @@ class AuthorizationMiddleware(object):
                 "Forbidden", 403, {"error_message": "This route is protected to admins"}
             )
 
-        return next(root, info, **args)
+        return nextFn(root, info, **args)

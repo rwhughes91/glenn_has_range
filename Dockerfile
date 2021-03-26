@@ -16,6 +16,8 @@ COPY . .
 ENV SERVER_NAME="localhost:5000"
 ENV SECRET_KEY="my secret key"
 ENV DATABASE_URI="sqlite://"
+ENV REDDIT_SECRET="my secrety reddit key"
+ENV REDDIT_CLIENT_ID="my reddit client ID"
 
 EXPOSE 5000
 CMD ["./startup.sh"]

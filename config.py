@@ -10,6 +10,12 @@ if not environ.get("SECRET_KEY"):
 if not environ.get("DATABASE_URI"):
     raise Exception("ENV variable DATABASE_URI must be set")
 
+if not environ.get("REDDIT_SECRET"):
+    raise Exception("ENV variable REDDIT_SECRET must be set")
+
+if not environ.get("REDDIT_CLIENT_ID"):
+    raise Exception("ENV variable REDDIT_CLIENT_ID must be set")
+
 
 class Config:
     """Base config class for application factory"""
@@ -22,6 +28,10 @@ class Config:
     SQLALCHEMY_ECHO = False
     WHOOSH_INDEX_PATH = "whooshIndex"
     WHOOSH_ANALYZER = "StemmingAnalyzer"
+    REDDIT_CLIENT_ID = environ.get("REDDIT_CLIENT_ID")
+    REDDIT_CLIENT_SECRET = environ.get("REDDIT_SECRET")
+    REDDIT_ACCESS_TOKEN_URL = environ.get("https://www.reddit.com/api/v1/access_token")
+    REDDIT_AUTHORIZE_URL = environ.get("https://www.reddit.com/api/v1/authorize")
 
 
 class DevConfig(Config):
